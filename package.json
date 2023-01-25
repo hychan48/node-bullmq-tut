@@ -2,11 +2,19 @@
   "name": "bullmq-tut",
   "version": "1.0.0",
   "description": "node-bullmq-tut",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nodemone_index":"nodemon --watch index.mjs index.mjs",
+    "addDemoJobs": "node bullmq/addJobsDemo.mjs"
   },
   "keywords": [],
   "author": "hychan48",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "bullmq": "^3.5.10"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }
