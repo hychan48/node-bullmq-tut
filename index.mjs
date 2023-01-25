@@ -10,11 +10,11 @@ const worker = new Worker(queueName, async job => {
   // and { qux: 'baz' } for the second.
   console.log('job.data',job.data);
 });
-// worker.on('completed', job => {
-//   console.log(`${job.id} has completed!`);
-// });
-//
-// worker.on('failed', (job, err) => {
-//   console.log(`${job.id} has failed with ${err.message}`);
-// });
+worker.on('completed', job => {
+  console.log(`${job.id} has completed!`);
+});
+
+worker.on('failed', (job, err) => {
+  console.log(`${job.id} has failed with ${err.message}`);
+});
 console.log('started');
