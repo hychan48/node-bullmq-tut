@@ -64,6 +64,8 @@ this.timeout(500);//500ms
  * @param data will automatically be changed
  */
 import fs from 'node:fs';
+import {Queue} from "bullmq";
+import {connection, queueName} from "./bullMQConstants.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `bullmq/addJobsDemo/${sFileName}`
@@ -72,7 +74,22 @@ function writeToFile(fileName,data,space=2){
   );
 }
 describe('addJobsDemo.test.mjs', function(){
-  it('async action here', async function(){
+  let myQueue;
+  before(()=>{
+    myQueue = new Queue(queueName,{connection});
+  });
+  it('Basic Add Queue', async function(){
+    //this.timeout(500);
+    await myQueue.add('myJobName', { foo: 'basic add que' });
+  });
+  it('Scheduled Task', async function(){
     //this.timeout(500);
   });
+  it('Loop Task', async function(){
+    //this.timeout(500);
+  });
+  after(async ()=>{
+    await myQueue.close();
+  })
+
 });
