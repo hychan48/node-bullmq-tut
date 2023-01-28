@@ -1,5 +1,7 @@
 /**
  * https://docs.bullmq.io/readme-1
+ *
+ * https://www.reddit.com/r/googlecloud/comments/10k4v2t/why_suddenly_much_higher_costs_in_google_cloud/
  */
 import { Worker } from 'bullmq';
 import {queueName} from "./bullmq/bullMQConstants.mjs";
