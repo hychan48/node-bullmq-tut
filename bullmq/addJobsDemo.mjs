@@ -1,6 +1,7 @@
 import { Queue } from 'bullmq';
+import {connection} from "./bullMQConstants.mjs";
 
-const myQueue = new Queue('foo');
+const myQueue = new Queue('foo',{connection});
 
 async function addJobs() {
   await myQueue.add('myJobName', { foo: 'bar' });
@@ -8,4 +9,5 @@ async function addJobs() {
 }
 
 await addJobs();
-process.exit()
+await myQueue.close();
+// process.exit()
