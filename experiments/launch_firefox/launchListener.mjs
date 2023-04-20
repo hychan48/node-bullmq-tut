@@ -16,7 +16,8 @@ const worker = new Worker(queueName, async job => {
 
 },{
   connection:{
-    host: "localhost",
+    // host: "localhost",
+    host: "DESKTOP-I5IO349.amd.com",
     port: 6379,
   }
   }
