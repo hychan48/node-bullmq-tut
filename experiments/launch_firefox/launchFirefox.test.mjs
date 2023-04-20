@@ -1,16 +1,16 @@
 /**
-yarn add mocha -D
+ yarn add mocha -D
 
-package.json
-  "imports": {
+ package.json
+ "imports": {
     "##/*": {
       "default": "./*"
     },
   },
-  "type": "module",
+ "type": "module",
 
-  jsconfig.json
-  {
+ jsconfig.json
+ {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -22,7 +22,7 @@ package.json
 
 
 
-*/
+ */
 // import { createRequire } from 'module';
 // const require = createRequire(import.meta.url);
 // const assert = require('assert');
@@ -65,11 +65,12 @@ this.timeout(500);//500ms
  */
 import fs from 'node:fs';
 import {execCmdOnController} from "./SpawnExecOnController.mjs";
+import {killFirefoxCmd, launchFirefoxCmd, launchFirefoxNT} from "./launchFirefox.nt.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `dev/pbs/test/${sFileName}`
   fs.writeFileSync(filePath,
-    typeof data === 'string' ? data :JSON.stringify(data,null,+space)
+      typeof data === 'string' ? data :JSON.stringify(data,null,+space)
   );
 }
 describe('launchFirefox.test.mjs', function(){
@@ -79,15 +80,24 @@ describe('launchFirefox.test.mjs', function(){
    * ."C:\Program Files\Mozilla Firefox\firefox.exe"
    */
   it('launch firefox normally', async function(){
-    //this.timeout(500);
+    this.timeout(5000);
     // const launchFirefox = `powershell -Command '."C:\\Program Files\\Mozilla Firefox\\firefox.exe"'`
     // cmd is different thatn firefox
-    const killFirefox = "taskkill /IM firefox.exe /F"
-    const launchFirefox = `"C:\\Program Files\\Mozilla Firefox\\firefox.exe"`
     let out
-    out = await execCmdOnController(killFirefox);
-    out = await execCmdOnController(launchFirefox);
-    assert.strictEqual(out.code,0)
+    try{
+      // out = await execCmdOnController("set PATH");console.log(out);
+      // out = await execCmdOnController(killFirefoxCmd);
+      // out = await execCmdOnController(launchFirefoxCmd)
+      out = await launchFirefoxNT(false);//not background task though..
+      // out = await launchFirefoxNT();//not background task though..
+      console.log(out);
+      assert.strictEqual(out.code,0)
+    }catch (e) {
+      console.error(e);
+    }finally {
+      // process.exit();
+    }
+
     // console.log(out);
   });
 });

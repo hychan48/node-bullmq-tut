@@ -16,12 +16,12 @@ export function execCmdOnController(cmd){
       reject(err);
     });
     spawnCmd.stdout.on('data', (data) => {
-      // console.log(`stdout: ${data}`);
+      console.log(`stdout: ${data}`);
       stdouts.push(data);
     });
 
     spawnCmd.stderr.on('data', (data) => {
-      // console.error(`stderr: ${data}`);
+      console.error(`stderr: ${data}`);
       stderrs.push(data);
     });
     //close after exit
